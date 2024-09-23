@@ -1,0 +1,40 @@
+class Solution {
+  public:
+    // Function to return the count of the number of elements in
+    // the intersection of two arrays.
+    int NumberofElementsInIntersection(int a[], int b[], int n, int m) {
+        // Your code goes here
+        int count = 0;
+        int i = 0; 
+        int j = 0;
+        sort(a, a + n);
+        sort(b, b + m);
+        while(i<n && j<m){
+           if(i>0 && a[i] == a[i-1]){
+               i++;
+               continue;
+           }
+           if ( j>0 && b[j]==b[j-1]){
+               j++;
+               continue;
+           }
+           if(a[i]<b[j]){
+               i++;
+           }
+           else if(a[i]>b[j]){
+               j++;
+           }
+           else{
+               count++;
+               i++;
+               j++;
+           }
+           
+            
+        
+        
+        }
+        return count;
+    
+        
+    }
