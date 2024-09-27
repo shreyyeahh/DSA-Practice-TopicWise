@@ -1,0 +1,30 @@
+// Brute force with T(n) = O(nlogn) and S(n) = O(n) 
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end());  // Sort the input array
+        int n = nums.size();
+        
+        // Create the array with elements 0 to n
+        vector<int> arr(n + 1);
+        for (int i = 0; i <= n; i++) {
+            arr[i] = i;
+        }
+
+        // Compare the two arrays to find the missing number
+        int k = 0;  // Pointer for nums
+        int l = 0;  // Pointer for arr
+
+        while (k < n && l <= n) {
+            if (nums[k] != arr[l]) {
+                // If there's a mismatch, we've found the missing number
+                return arr[l];
+            }
+            k++;
+            l++;
+        }
+
+        // If we don't find any mismatch, the missing number is `n` (the last one)
+        return arr[l];
+    }
+};
