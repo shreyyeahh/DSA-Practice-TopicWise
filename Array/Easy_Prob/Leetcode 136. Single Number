@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int n = nums.size();
+        for(int i = 0; i < n; i++) {
+            int num = nums[i];
+            int count = 0;
+            // Count occurrences of nums[i] in the array
+            for(int j = 0; j < n; j++) {
+                if(nums[j] == num) {
+                    count++;
+                }
+            }
+            // If the count is 1, return the number
+            if(count == 1) {
+                return num;
+            }
+        }
+        return -1; // Add a return outside the loop to handle edge cases
+    }
+};
