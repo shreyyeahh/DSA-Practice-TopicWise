@@ -1,0 +1,47 @@
+/* a Node of the doubly linked list
+struct Node
+{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  Node(int x) { data = x; next = prev = NULL; }
+}; */
+
+// Function to insert a new node at given position in doubly linked list.
+class Solution {
+    public:
+      // Function to insert a new node at given position in doubly linked list.
+      Node *addNode(Node *head, int pos, int data) {
+      if (head == nullptr) return nullptr; // Edge case: Empty list
+  
+      Node* temp = head;
+      Node* nodetoAdd = new Node(data);
+  
+      // Traverse to the position 'pos'
+      int count = 0;
+      while (temp != nullptr && count < pos) {
+          temp = temp->next;
+          count++;
+      }
+  
+      // If 'temp' is nullptr, the position was out of bounds
+      if (temp == nullptr) {
+          cout << "Position out of bounds" << endl;
+          return head;
+      }
+  
+      // Insert the new node after 'temp'
+      nodetoAdd->prev = temp;
+      nodetoAdd->next = temp->next;
+  
+      // If 'temp->next' is not nullptr, update its 'prev' pointer
+      if (temp->next != nullptr) {
+          temp->next->prev = nodetoAdd;
+      }
+  
+      temp->next = nodetoAdd;
+  
+      return head;
+  }
+  
+  };

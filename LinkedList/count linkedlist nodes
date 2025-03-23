@@ -1,0 +1,27 @@
+/* Link list node */
+/*
+struct Node
+{
+    int data;
+    Node* next;
+    Node(int x) {  data = x;  next = NULL; }
+}; */
+
+class Solution {
+public:
+    // Function to count nodes of a linked list.
+    int getCount(struct Node* head) {
+        int count = 0; // Initialize count to 0
+        Node* current = head; // Start traversal from the head node
+        
+        // Traverse the list
+        while (current != nullptr) {
+            count++;           // Increment count for each node
+            current = current->next; // Move to the next node
+        }
+        
+        return count; // Return the total count
+    }
+
+
+};
