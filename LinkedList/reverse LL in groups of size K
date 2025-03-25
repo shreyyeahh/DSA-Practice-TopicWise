@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* getkthNode(ListNode* temp , int k){
+        while(k > 1 && temp != nullptr){  // Ensure safe traversal
+            temp = temp->next;
+            k--;
+        }
+        return temp;  // If `temp` is nullptr, this prevents access violation
+    }
+
+    ListNode* reverseLL(ListNode* head){
+        ListNode* prev = nullptr;
+        ListNode* temp = head;
+        while(temp != nullptr){
+            ListNode* nextNode = temp->next;
+            temp->next = prev;
+            prev = temp;
+            temp = nextNode;
+        }
+        return prev;
+    }
+
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (!head || k == 1) return head; // No need to reverse
+
+        ListNode* temp = head;
+        ListNode* prevLast = nullptr;
+        ListNode* nextNode = nullptr;
+        
+        while(temp != nullptr){
+            ListNode* kthnode = getkthNode(temp, k);
+            if(kthnode == nullptr){  
+                if(prevLast) prevLast->next = temp;
+                break;
+            }
+
+            nextNode = kthnode->next;
+            kthnode->next = nullptr;
+
+            ListNode* newHead = reverseLL(temp);  // Reverse and get new head
+            
+            if(temp == head){
+                head = newHead;  // Update head only for first segment
+            } else {
+                prevLast->next = newHead;  // Connect last reversed segment to the new head
+            }
+            
+            prevLast = temp;  // Update prevLast to the old head of the segment
+            temp = nextNode;  // Move temp to next segment
+        }
+        
+        return head;
+    }
+};
